@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tienda de Ropa</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Tienda de Ropa</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Productos</a></li>
+      <li><a href="#">Carrito</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <h2>Productos</h2>
+    <div class="producto">
+      <img src="imagen1.jpg" alt="Producto 1">
+      <h3>Producto 1</h3>
+      <p>Precio: $10</p>
+      <button onclick="agregarProducto(1)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagen2.jpg" alt="Producto 2">
+      <h3>Producto 2</h3>
+      <p>Precio: $15</p>
+      <button onclick="agregarProducto(2)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagen3.jpg" alt="Producto 3">
+      <h3>Producto 3</h3>
+      <p>Precio: $20</p>
+      <button onclick="agregarProducto(3)">Agregar al carrito</button>
+    </div>
+  </section>
+
+  <aside>
+    <h2>Carrito de Compras</h2>
+    <ul id="carrito">
+    </ul>
+    <p id="total">Total: $0</p>
+    <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+  </aside>
+
+  <footer>
+    <p>Tienda de Ropa - Todos los derechos reservados</p>
+  </footer>
+</body>
+</html>
