@@ -1,50 +1,132 @@
-function calcularCostoTotal() {
-    let cantidad = parseInt(prompt("Ingrese la cantidad de productos:"));
-    let total = 0;
+const cestaProductos = [];
+const salir = 3;
 
-    for (let i = 0; i < cantidad; i++) {
-        let precioProductos = parseFloat(prompt("Ingrese el precio unitario del producto " + (i + 1) + ":"));
-        total += precioProductos;
+class Producto {
+    constructor(id, nombre, precio, categoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.categoria = categoria;
     }
-
-    alert("¡Genial! Tenemos tus productos listos en la cesta, por ser tu primera compra te ofrecemos descuentos");
-
-    return total;
 }
 
-function aplicarDescuento(costoTotal) {
-    let descuento = 0;
+const arrayProductos = [
+    new Producto(1, "Viola 16 pulgadas", 650, "instrumentos"),
+    new Producto(2, "Violin 4/4", 500, "instrumentos"),
+    new Producto(
+        3,
+        "RockJam Kit de piano de teclado con pantalla tactil",
+        300,
+        "instrumentos"
+    ),
+    new Producto(
+        4,
+        "D Z Strad - Viola de 15,5 pulgadas hecha a mano",
+        1500,
+        "instrumentos"
+    ),
+    new Producto(
+        5,
+        "Sabomenia Violin Dreamer D10 hecho a mano",
+        299,
+        "instrumentos"
+    ),
+    new Producto(
+        6,
+        "Starument Piano de teclado electrico premium",
+        149,
+        "instrumentos"
+    ),
+    new Producto(7, "D'Addario Kaplan Premium Rosin", 8, "accesorios"),
+    new Producto(
+        8,
+        "Bernardel Original  Colofonia para violin y viola",
+        12,
+        "accesorios"
+    ),
+];
 
-    let tipoDescuento = prompt("Ingrese el tipo de descuento (A/B/C):");
+const mostrarPorCategoria = (categoria) => {
+    const filtrado = arrayProductos.filter((el) => el.categoria === categoria);
+    let mensajeAMostrar = filtrado
+        .map(
+            (el) => `ID: ${el.id} \nProducto: ${el.nombre} \nPrecio: ${el.precio} \n`
+        )
+        .join("");
+    const id = parseInt(
+        prompt(
+            `${mensajeAMostrar}\nIngrese el ID del producto para agregar al carrito`
+        )
+    );
+    const productoEncontrado = arrayProductos.find((el) => el.id === id);
+    cestaProductos.push(productoEncontrado);
+};
 
-    switch (tipoDescuento) {
-        case "A":
-            descuento = costoTotal * 0.1; // 10% de descuento
+const verProducto = () => {
+    let option;
+    option = parseInt(
+        prompt(
+            "Elige la categoria que quieres ver: \n 1) Instrumentos \n 2) Accesorios \n 3) Ninguna"
+        )
+    );
+    while (option !== salir) {
+        switch (option) {
+            case 1:
+                mostrarPorCategoria("instrumentos");
+                break;
+            case 2:
+                mostrarPorCategoria("accesorios");
+                break;
+            default:
+                alert("Has ingresado una opcion invalida.");
+        }
+        option = parseInt(
+            prompt(
+                "Elige la categoria que quieres ver: \n 1) Instrumentos \n 2) Accesorios \n 3) Ninguna"
+            )
+        );
+    }
+};
+
+const verCarrito = () => {
+    let mensajeAMostrar = "Lista de productos: \n";
+    mensajeAMostrar += cestaProductos
+        .map(
+            (el) => `ID: ${el.id} \nProducto: ${el.nombre} \nPrecio: ${el.precio} \n`
+        )
+        .join("");
+    const total = cestaProductos.reduce(
+        (acumulador, elemento) => acumulador + elemento.precio,
+        0
+    );
+    mensajeAMostrar += `El total de los productos anadidos es: ${total}`;
+    alert(mensajeAMostrar);
+};
+
+let opcion = parseInt(
+    prompt(
+        "Elige la operacion que deseas: \n 1) Ver Productos \n 2) Ver Carrito \n 3) Ninguna, salir"
+    )
+);
+
+while (opcion !== salir) {
+    switch (opcion) {
+        case 1:
+            verProducto();
             break;
-        case "B":
-            descuento = costoTotal * 0.2; // 20% de descuento
-            break;
-        case "C":
-            descuento = costoTotal * 0.3; // 30% de descuento
+        case 2:
+            verCarrito();
             break;
         default:
-            console.log("Tipo de descuento inválido.");
+            alert("Has ingresado una opcion invalida.");
+            break;
     }
 
-    costoTotal = costoTotal - descuento;
-
-    return costoTotal;
+    opcion = parseInt(
+        prompt(
+            "Elige la operacion que deseas: \n 1) Ver Productos \n 2) Ver Carrito \n 3) Ninguna, salir"
+        )
+    );
 }
 
-function mostrarResultado(resultado) {
-    console.log("El costo total de los productos es: $" + resultado);
-    alert("El costo total de los productos es: $" + resultado);
-}
-
-function calcularCostoTotalConDescuento() {
-    let costoTotal = calcularCostoTotal();
-    let costoTotalConDescuento = aplicarDescuento(costoTotal);
-    mostrarResultado(costoTotalConDescuento);
-}
-
-calcularCostoTotalConDescuento();
+alert("Gracias! Vuelve pronto!");
